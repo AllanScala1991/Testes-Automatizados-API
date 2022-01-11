@@ -18,4 +18,20 @@ Test.doDescribe("Tests Via CEP", () => {
             
         })
     })
+
+    Test.doScenario("Should validate RJ address", () => {
+        Request.get("https://viacep.com.br/ws/27110-290/json/", (error, response, body): any => {
+            if(error == null){
+                let _body = JSON.parse(body)
+                Expect.doExpectToEqual(response.statusCode, 200)
+                Expect.doExpectToEqual(_body.logradouro, "Travessa Joaquim Sampaio")
+                Expect.doExpectToEqual(_body.bairro, "Oficinas Velhas")
+                Expect.doExpectToEqual(_body.localidade, "Barra do Piraí")
+                Expect.doExpectToEqual(_body.uf, "RJ")
+            }else {
+                console.log(error)
+            }
+            
+        })
+    })
 })
